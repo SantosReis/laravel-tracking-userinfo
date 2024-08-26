@@ -20,6 +20,21 @@ class TrackingInfoController extends Controller
      */
     public function store(Request $request)
     {
+        $all_fields =  explode(';', hex2bin($request->track));
+        $request->merge(['internal_client' => $all_fields[0]]);
+        $request->merge(['client' => $all_fields[1]]);
+        $request->merge(['module' => $all_fields[2]]);
+        $request->merge(['language' => $all_fields[3]]);
+        $request->merge(['url' => $all_fields[4]]);
+        $request->merge(['width' => $all_fields[5]]);
+        $request->merge(['height' => $all_fields[6]]);
+        $request->merge(['browser' => $all_fields[7]]);
+        $request->merge(['browser_version' => $all_fields[8]]);
+        $request->merge(['java' => boolval($all_fields[9])]);
+        $request->merge(['mobile' => boolval($all_fields[10])]);
+        $request->merge(['os' => $all_fields[11]]);
+        $request->merge(['osversion' => $all_fields[12]]);
+        $request->merge(['cookies' => boolval($all_fields[13])]);
 
         $validatedData = $request->validate([
             'internal_client' => 'required|string|max:255',
@@ -27,7 +42,6 @@ class TrackingInfoController extends Controller
             'module' =>	'required|string|max:255',
             'language' => 'required|string|max:255',
             'url' => 'required|string|max:255',
-            'date' => 'required|string|max:255',
             'width' => 'required|string|max:255',
             'height' =>	'required|string|max:255',
             'browser' => 'required|string|max:255',
@@ -39,11 +53,6 @@ class TrackingInfoController extends Controller
             'cookies' => 'required|boolean',
             'track' => 'required|string|max:255',
         ]);
-
-
-
-
-
 
         $trackingInfo = TrackingInfo::create($validatedData);
 

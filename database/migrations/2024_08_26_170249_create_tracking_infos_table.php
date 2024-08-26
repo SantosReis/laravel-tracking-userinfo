@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('module');
             $table->string('language');
             $table->string('url');
-            $table->string('date');
             $table->string('width');
             $table->string('height');
             $table->string('browser');
