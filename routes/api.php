@@ -21,4 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-Route::post('/trackinginfo', [TrackingInfoController::class, 'store']);
+Route::get('/', [TrackingInfoController::class, 'store']);
+Route::get('/trackinginfo', [TrackingInfoController::class, 'index']);
