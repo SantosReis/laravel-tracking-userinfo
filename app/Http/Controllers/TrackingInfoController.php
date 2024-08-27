@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use App\Models\TrackingInfo;
 use Illuminate\Http\Request;
 
@@ -10,9 +11,22 @@ class TrackingInfoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(TrackingInfo::all(), 200);
+
+        //The user must be able to filter the table by internal_client, client, module, language, date and mobile
+
+        // Handles ?sort=client (asc) and ?sort=-client (desc)
+        // Get the sort query parameter (or fall back to default sort "client")
+        $sortColumn = $request->input('sort', 'client');
+
+        // Set the sort direction based on whether the key starts with -
+        // using Laravel's Str::startsWith() helper function
+        $sortDirection = Str::startsWith($sortColumn, '-') ? 'desc' : 'asc';
+        $sortColumn = ltrim($sortColumn, '-');
+
+        return TrackingInfo::orderBy($sortColumn, $sortDirection)->paginate(20);
+  
     }
 
     /**
