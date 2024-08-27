@@ -28,12 +28,12 @@ class TrackingInfoApiTest extends TestCase
         $this->assertDatabaseHas('tracking_info', $trackingInfo);
     }
 
-    public function test_it_can_retrieve_latest_shorteners(): void
+    public function test_it_can_retrieve_trackinginfo(): void
     {
 
         TrackingInfo::factory(5)->create();
 
-        $response = $this->json('GET', '/api/trackinginfo')->assertStatus(200);
-        $response->assertJsonCount(5);
+        $response = $this->json('GET', '/api/trackinginfo/')->assertStatus(200);
+        $response->assertJsonCount(5, 'data');
     }
 }

@@ -14,7 +14,7 @@ class TrackingInfoController extends Controller
     public function index(Request $request)
     {
 
-        //The user must be able to filter the table by internal_client, client, module, language, date and mobile
+        //The user must be able to filter the table by internal_client, client, module, language, date(created_at) and mobile
 
         // Handles ?sort=client (asc) and ?sort=-client (desc)
         // Get the sort query parameter (or fall back to default sort "client")
@@ -25,7 +25,9 @@ class TrackingInfoController extends Controller
         $sortDirection = Str::startsWith($sortColumn, '-') ? 'desc' : 'asc';
         $sortColumn = ltrim($sortColumn, '-');
 
-        return TrackingInfo::orderBy($sortColumn, $sortDirection)->paginate(20);
+        return TrackingInfo::select(['internal_client', 'client', 'module', 'language', 'mobile', 'created_at'])
+            ->orderBy($sortColumn, $sortDirection)
+            ->paginate(20);
   
     }
 
