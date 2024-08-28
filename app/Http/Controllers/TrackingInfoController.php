@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use App\Models\TrackingInfo;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\TrackingInfoExport;
 
 class TrackingInfoController extends Controller
 {
@@ -99,5 +101,10 @@ class TrackingInfoController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function export() 
+    {
+        return Excel::download(new TrackingInfoExport, 'tracking-info.xlsx');
     }
 }
