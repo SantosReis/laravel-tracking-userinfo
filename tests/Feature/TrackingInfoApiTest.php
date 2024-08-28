@@ -6,6 +6,8 @@ use Tests\TestCase;
 use App\Models\TrackingInfo;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\TrackingInfoExport;
 
 class TrackingInfoApiTest extends TestCase
 {
@@ -35,5 +37,11 @@ class TrackingInfoApiTest extends TestCase
 
         $response = $this->json('GET', '/api/trackinginfo/')->assertStatus(200);
         $response->assertJsonCount(5, 'data');
+    }
+
+    public function test_it_can_download_trackinginfo_export(): void
+    {
+        $response = $this->call('GET','/api/export/');
+        $response->assertStatus(200);   
     }
 }
