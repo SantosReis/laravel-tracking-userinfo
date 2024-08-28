@@ -11,6 +11,13 @@ class TrackingInfo extends Model
 
     protected $table = 'tracking_info';
 
+    protected $hidden = ['track', 'updated_at'];
+
+    protected $casts = [
+        'created_at'  => 'date:Y-m-d',
+        'updated_at' => 'date:Y-m-d',
+    ];
+
     protected $fillable = ['internal_client', 'client', 'module', 'language', 'url', 'width', 'height', 'browser', 'browser_version', 'java', 'mobile', 'os', 'osversion', 'cookies', 'track'];
 
 }
