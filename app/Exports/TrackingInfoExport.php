@@ -13,13 +13,17 @@ class TrackingInfoExport implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        return TrackingInfo::all();
+
+        return TrackingInfo::select([
+            'internal_client', 'client', 'module', 'language', 'url', 'width', 'height', 'browser',
+            'browser_version', 'java', 'mobile', 'os' , 'osversion', 'cookies', 'created_at'
+        ])->get();
+        // return TrackingInfo::all()->except(['track']);
     }
 
     public function headings(): array
     {
         return [
-            "ID",
             "Internal Client",
             "Client", 
             "Module",

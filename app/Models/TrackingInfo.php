@@ -11,7 +11,7 @@ class TrackingInfo extends Model
 
     protected $table = 'tracking_info';
 
-    protected $hidden = ['track', 'updated_at'];
+    protected $hidden = ['updated_at'];
 
     protected $casts = [
         'created_at'  => 'date:Y-m-d',

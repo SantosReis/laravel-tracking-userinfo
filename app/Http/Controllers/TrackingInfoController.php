@@ -27,7 +27,14 @@ class TrackingInfoController extends Controller
         $sortDirection = Str::startsWith($sortColumn, '-') ? 'desc' : 'asc';
         $sortColumn = ltrim($sortColumn, '-');
 
-        return TrackingInfo::orderBy($sortColumn, $sortDirection)
+        // return TrackingInfo::orderBy($sortColumn, $sortDirection)
+        //     ->paginate(20);
+
+        return TrackingInfo::select([
+                'internal_client', 'client', 'module', 'language', 'url', 'width', 'height', 'browser',
+                'browser_version', 'java', 'mobile', 'os' , 'osversion', 'cookies', 'created_at'
+            ])
+            ->orderBy($sortColumn, $sortDirection)
             ->paginate(20);
   
     }
